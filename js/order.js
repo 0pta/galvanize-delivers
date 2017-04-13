@@ -1,33 +1,52 @@
+window.onload = function main() {
+createMenu()
+  // createMenuBtnHandler()
+}
+
 let items = []
-let orderBtn = [1, 2, 3, 4]
 
 let menuObjArr = [{
-  name: 'burger',
+  id: 'burger',
+  name: 'Royale with Cheese',
   price: 8.99
 }, {
-  name: 'pizza',
+  id: 'pizza',
+  name: 'Arugula Pie',
   price: 11.99
 }, {
-  name: 'ribs',
+  id: 'ribs',
+  name: 'Smoked Swine',
   price: 14.99
 }, {
-  name: 'ice_cream',
+  id: 'ice_cream',
+  name: 'Ice Cream Biscut',
   price: 7.99
 }, {
-  name: 'other pizza',
+  id: 'other pizza',
+  name: `Wes's Pizza`,
   price: 3.44
 }]
 
+function createMenu() {
+  menuObjArr.forEach(function(item) {
+    $('.menu-card-row').append(`<div class="thumbnail col-xs-6">
+      <img class="img" src="img/${item.id}.jpg">
+      <div class="caption">
+        <h4>${item.name}</h4>
+        <p>$${item.price}</p>
+        <hr>
+        <p><a id="${item.id}-button" href="#" class="btn btn-sm add-order-btn">ADD TO ORDER</a></p>
+      </div>
+    </div>`)
+  })
+}
+
+function createMenuBtnHandler() {
+  
+}
+
 function pushItems(x) {
-  if (orderBtn[x] == 1) {
-    items.push(menuObjArr[0])
-  } else if (orderBtn[x] == 2) {
-    items.push(menuObjArr[1])
-  } else if (orderBtn[x] == 3) {
-    items.push(menuObjArr[2])
-  } else if (orderBtn[x] == 4) {
-    items.push(menuObjArr[3])
-  }
+  items.push(menuObjArr[x])
   return items
 }
 
@@ -55,17 +74,11 @@ function calcTotal() {
   return total
 }
 
-
-
-console.log(items)  //items
-console.log(calcSubTotal(items)) //subTotal
-console.log(calcTax()) //tax
-console.log(calcTotal())
-
 $('.alert').hide()
 // appender code
 let itemNameDiv = "#item-listed"
 let itemPriceDiv = "#price-listed"
+
 
 $('#burger-button').on('click', function () {
   event.preventDefault()
@@ -131,7 +144,6 @@ $('#home').load("index.html")
 $('.orderform').submit(function (e) {
   e.preventDefault()
   let name = $('#name').val()
-  console.log(name)
   calcSubTotal(items)
   if (items == 0) {
     $('.alert-warning').show()
